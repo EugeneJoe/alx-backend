@@ -59,8 +59,7 @@ class Server:
         dataset = self.dataset()
         data_length = len(dataset)
         try:
-            start, end = index_range(page, page_size)
-            return dataset[start:end]
+            index = index_range(page, page_size)
+            return dataset[index[0]:index[1]]
         except IndexError:
             return []
-

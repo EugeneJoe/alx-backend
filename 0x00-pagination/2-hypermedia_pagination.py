@@ -53,18 +53,15 @@ class Server:
         Return:
             list of lists containing required data from the dataset
         """
-        assert type(page) == int
-        assert page > 0
-        assert type(page_size) == int
-        assert page_size > 0
+        assert type(page) is int and page > 0
+        assert type(page_size) is int and page_size > 0
 
         dataset = self.dataset()
-        data_length = len(dataset)
-        if (page * page_size) > data_length:
+        try:
+            index = index_range(page, page_size)
+            return dataset[index[0]:index[1]]
+        except IndexError:
             return []
-
-        start, end = index_range(page, page_size)
-        return dataset[start:end]
 
     def get_hyper(self, page: int = 1, page_size: int = 10) -> Dict:
         """
@@ -89,10 +86,10 @@ class Server:
         response['page'] = page
         response['data'] = data
         total_pages = math.ceil(data_length / page_size)
-        if page + 1 > total_pages:
-            response['next_page'] = None
-        else:
+        if page + 1 < total_pages:
             response['next_page'] = page + 1
+        else:
+            response['next_page'] = None
         if page - 1 > 1:
             response['prev_page'] = page - 1
         else:
