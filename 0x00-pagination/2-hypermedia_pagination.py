@@ -88,14 +88,15 @@ class Server:
         response['page_size'] = len(data)
         response['page'] = page
         response['data'] = data
-        if (page * page_size) > data_length:
+        total_pages = math.ceil(data_length / page_size)
+        if page + 1 > total_pages:
             response['next_page'] = None
         else:
             response['next_page'] = page + 1
-        if page > 1:
+        if page - 1 > 1:
             response['prev_page'] = page - 1
         else:
             response['prev_page'] = None
-        response['total_pages'] = math.ceil(data_length / page_size)
+        response['total_pages'] = total_pages
 
         return response
