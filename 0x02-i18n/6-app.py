@@ -43,7 +43,7 @@ def get_user() -> Union[Dict, None]:
     or if 'login_as' URL parameter was not found
     """
     id = request.args.get('login_as', None)
-    if int(id) in users.keys():
+    if id and int(id) in users.keys():
         return users.get(int(id))
     return None
 
