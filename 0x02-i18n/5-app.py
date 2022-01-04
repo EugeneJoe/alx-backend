@@ -54,8 +54,7 @@ def before_request():
     Add user to flask.g if user is found
     """
     user = get_user()
-    if user is not None:
-        g.user = user
+    g.user = user
 
 
 @babel.localeselector
