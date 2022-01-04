@@ -9,10 +9,6 @@ from flask import (
     g
 )
 from flask_babel import Babel
-from typing import (
-    Dict,
-    Union
-)
 
 
 class Config(object):
@@ -37,7 +33,7 @@ users = {
 }
 
 
-def get_user() -> Union[Dict, None]:
+def get_user():
     """
     Returns a user dictionary or None if ID value can't be found
     or if 'login_as' URL parameter was not found
